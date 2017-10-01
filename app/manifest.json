@@ -1,0 +1,22 @@
+{
+   "name":"TabCleaner",
+   "version":"1.0.0",
+   "manifest_version": 2,
+   "description": "Close all not pinned tab with Option+W key. Just it.",
+   "icons":{
+      "64":"icons/icon64.png"
+   },
+   "background":{
+      "scripts":[
+         "background.js"
+      ]
+   },
+   "commands":{
+      "clean-tabs":{
+         "suggested_key":{
+            "default":"Alt+W"
+         },
+         "description":"Clean Tabs"
+      }
+   }
+}

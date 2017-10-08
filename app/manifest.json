@@ -1,8 +1,8 @@
 {
    "name":"TabCleaner",
-   "version":"1.0.0",
+   "version":"2.0.0",
    "manifest_version": 2,
-   "description": "Close all not pinned tab with Option+W key. Just it.",
+   "description": "Gather your all tabs with Option+G, Clean your all tabs with Option+W",
    "icons":{
       "64":"icons/icon64.png"
    },

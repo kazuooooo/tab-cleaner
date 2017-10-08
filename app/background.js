@@ -18,57 +18,31 @@ function cleanTabs (){
   });
 }
 
+var otherTabsIds = [];
+var pinnedTabIds =  [];
+
 function gatherWindows(){
+  resetOtherTabs();
   chrome.tabs.query({ currentWindow: false }, function(tabs) {
-    otherTabs = []
 
     for(i = 0; i < tabs.length; i++){
-      otherTabs.push(tabs[i]);
-    }
-
-    chrome.windows.getCurrent({"populate" : true}, function(window) {
-      lastTabIndex = window.tabs.length;
-      for(i = 0; i < otherTabs.length; i++){
-        chrome.tabs.move(otherTabs[i].id, { "windowId": window.id, "index": lastTabIndex }, function(tab) {
-          console.log(this);
-          lastTabIndex++;
-        });
+      otherTabsIds.push(tabs[i].id);
+      if(tabs[i].pinned){
+        pinnedTabIds.push(tabs[i].id)
       }
+    }
+    chrome.windows.getCurrent({"populate" : true}, function(window) {
+      chrome.tabs.move(otherTabsIds, { "windowId": window.id, "index": window.tabs.length }, function(_) {
+        for(i = 0; i< pinnedTabIds.length; i++){
+          chrome.tabs.update(pinnedTabIds[i], { "pinned": true })
+        }
+      });
     });
+
   });
 }
 
-
-// var targetWindow = null;
-// var tabCount = 0;
-// function start(tab) {
-//   chrome.windows.getCurrent(getWindows);
-// }
-// function getWindows(win) {
-//   targetWindow = win;
-//   chrome.tabs.getAllInWindow(targetWindow.id, getTabs);
-// }
-// function getTabs(tabs) {
-//   tabCount = tabs.length;
-//   // We require all the tab information to be populated.
-//   chrome.windows.getAll({"populate" : true}, moveTabs);
-// }
-// function moveTabs(windows) {
-//   var numWindows = windows.length;
-//   var tabPosition = tabCount;
-//   for (var i = 0; i < numWindows; i++) {
-//     var win = windows[i];
-//     if (targetWindow.id != win.id) {
-//       var numTabs = win.tabs.length;
-//       for (var j = 0; j < numTabs; j++) {
-//         var tab = win.tabs[j];
-//         // Move the tab into the window that triggered the browser action.
-//         chrome.tabs.move(tab.id,
-//           {"windowId": targetWindow.id, "index": tabPosition});
-//         tabPosition++;
-//       }
-//     }
-//   }
-// }
-// // Set up a click handler so that we can merge all the windows.
-// chrome.browserAction.onClicked.addListener(start);
+function resetOtherTabs(){
+  otherTabsIds =  [];
+  pinnedTabIds =  [];
+}

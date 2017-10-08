@@ -17,6 +17,12 @@
             "default":"Alt+W"
          },
          "description":"Clean Tabs"
+      },
+      "gather-tags": {
+         "suggested_key":{
+            "default":"Alt+G"
+         },
+         "description":"Gather Windows"
       }
    }
 }

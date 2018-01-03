@@ -4,13 +4,15 @@ chrome.commands.onCommand.addListener(function(command) {
     cleanTabs()
   } else if(command == "gather-tags") {
     gatherWindows()
+  } else if(command == "pin-tab"){
+    pinTab()
   }
 
 });
 
 function cleanTabs (){
   chrome.tabs.query({currentWindow: true, pinned: false, active: false}, function(tabs) {
-    tabIds = []
+    var tabIds = []
     for(i = 0; i < tabs.length; i++){
       tabIds.push(tabs[i].id);
     }
@@ -31,6 +33,7 @@ function gatherWindows(){
         pinnedTabIds.push(tabs[i].id)
       }
     }
+
     chrome.windows.getCurrent({"populate" : true}, function(window) {
       chrome.tabs.move(otherTabsIds, { "windowId": window.id, "index": window.tabs.length }, function(_) {
         for(i = 0; i< pinnedTabIds.length; i++){
@@ -39,6 +42,13 @@ function gatherWindows(){
       });
     });
 
+  });
+}
+
+function pinTab(){
+  chrome.tabs.query({currentWindow: true, active: true}, function(tabs) {
+    var currentTab = tabs[0];
+    chrome.tabs.update(currentTab.id, { "pinned": true})
   });
 }
 

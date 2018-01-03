@@ -23,6 +23,12 @@
             "default":"Alt+G"
          },
          "description":"Gather Windows"
+      },
+      "pin-tab": {
+         "suggested_key":{
+            "default":"Alt+P"
+         },
+         "description":"Pin tab"
       }
    }
 }

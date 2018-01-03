@@ -8,7 +8,7 @@
    },
    "background":{
       "scripts":[
-         "background.js"
+         "common.js", "background.js"
       ]
    },
    "commands":{
@@ -30,5 +30,10 @@
          },
          "description":"Pin tab"
       }
+   },
+   "browser_action": {
+      "default_icon": "icons/icon64.png",
+      "default_title": "manipulate tabs",
+      "default_popup": "popup.html"
    }
 }

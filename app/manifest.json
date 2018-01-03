@@ -1,14 +1,14 @@
 {
-   "name":"TabCleaner",
-   "version":"2.0.0",
+   "name":"タブ閉じ太郎まとめ太郎",
+   "version":"3.0.0",
    "manifest_version": 2,
-   "description": "Gather your all tabs with Option+G, Clean your all tabs with Option+W",
+   "description": "たくさんタブを開いてしまい、お困りではありませんか？タブ閉じ太郎まとめ太郎ではそんな悩みを解決します。タブをまとめて閉じたり、まとめたりすることができます。また、ピン留めすることもできます。",
    "icons":{
       "64":"icons/icon64.png"
    },
    "background":{
       "scripts":[
-         "common.js", "background.js"
+         "common.js", "command.js", "context_menu.js"
       ]
    },
    "commands":{
@@ -35,5 +35,8 @@
       "default_icon": "icons/icon64.png",
       "default_title": "manipulate tabs",
       "default_popup": "popup.html"
-   }
+   },
+   "permissions": [
+     "contextMenus"
+   ]
 }
